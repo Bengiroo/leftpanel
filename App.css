@@ -1,0 +1,274 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.app-container {
+  display: flex;
+  height: 100vh;
+}
+
+.left-panel {
+  position: fixed;
+  /* Ensures the panel stays fixed to the left side */
+  top: 0;
+  /* Aligns the panel to the top of the viewport */
+  left: 0;
+  /* Aligns the panel to the left of the viewport */
+  width: 300px;
+  /* Sets the width of the panel */
+  background-color: #0e2033;
+  /* Blue background */
+  color: white;
+  display: flex;
+  flex-direction: column;
+  /* Keep column for other elements */
+  padding: 25px;
+  height: 100%;
+  /* Makes the panel span the full height of the viewport */
+  z-index: 100;
+  /* Ensures it stays above other elements */
+}
+
+.rot-button {
+  position: absolute;
+  /* Positions the button relative to the left panel */
+  bottom: 180px;
+  /* Adjust this value to place it above the fire button */
+  left: 50%;
+  /* Centers the button horizontally */
+  transform: translateX(-50%);
+  /* Ensures perfect horizontal centering */
+  width: 23vw;
+  /* Adjust width based on viewport */
+  height: 14vh;
+  /* Adjust height based on viewport */
+  background-image: url('/assets/rot.gif');
+  /* Use rot.gif as the button background */
+  background-size: cover;
+  /* Ensures the gif covers the button */
+  background-repeat: no-repeat;
+  /* Prevents the gif from repeating */
+  border: none;
+  /* Adds a red border */
+  cursor: url('/assets/crosshair.png'), auto;
+  /* Sets the custom cursor */
+  background-color: transparent;
+  /* Ensures no white background */
+  transition: transform 0.3s ease;
+  /* Smooth flipping */
+}
+
+.rot-button.rotated {
+  transform: translateX(-50%) scaleX(-1);
+  /* Flip horizontally */
+}
+
+.fire-button {
+  position: absolute;
+  /* Positions the button relative to the left panel */
+  bottom: 300px;
+  /* Adjust this value to bring the button higher */
+  left: 50%;
+  /* Centers the button horizontally */
+  transform: translateX(-50%);
+  /* Ensures perfect horizontal centering */
+  width: 23vw;
+  /* Adjust width based on viewport */
+  height: 10vh;
+  /* Adjust height based on viewport */
+  background-image: url('/assets/fire.gif');
+  /* Use fire.gif as the button background */
+  background-size: cover;
+  /* Ensures the gif covers the button */
+  background-repeat: no-repeat;
+  /* Prevents the gif from repeating */
+  border: none;
+  /* Adds a red border */
+  cursor: url('/assets/crosshair.png'), auto;
+  /* Sets the custom cursor */
+  background-color: transparent;
+  /* Ensures no white background */
+}
+
+.rot-button,
+.fire-button {
+  outline: none;
+  /* Remove the default focus outline */
+}
+
+.rot-button:focus,
+.fire-button:focus {
+  outline: none;
+  /* Ensure no outline appears when the button is focused */
+}
+
+.slider-group-wrapper {
+  position: fixed;
+  bottom: 45vh;
+  left: 1.5vw;
+  /* Align to the left edge */
+  width: 25vw;
+  /* Ensure the container has a reasonable width */
+  display: flex;
+  flex-direction: column;
+  gap: 5vh;
+  /* Reduce gap between sliders */
+  align-items: center;
+  justify-content: center;
+  z-index: 91;
+  pointer-events: auto;
+}
+
+.slider {
+  -webkit-appearance: none;
+  /* For WebKit-based browsers */
+  appearance: none;
+  /* Standard property for broader compatibility */
+  width: 100%;
+  height: 1vh;
+  background: #FFD700;
+  border-radius: 0.5vh;
+  outline: none;
+  cursor: url('/assets/crosshair.png'), pointer;
+  position: relative;
+}
+
+/* 🔘 Thumb Style */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 80px;
+  height: 80px;
+  background: url('/assets/missile.png') no-repeat center center;
+  /* Replace with your image */
+  background-size: contain;
+  border: none;
+  cursor: url('/assets/crosshair.png'), pointer;
+  transition: transform 0.2s ease;
+  /* Smooth scaling */
+}
+
+.slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  /* Scale up on hover */
+}
+
+/* 🔘 Track Style for Firefox */
+.slider::-moz-range-thumb {
+  width: 80px;
+  height: 80px;
+  background: url('/assets/missile.png') no-repeat center center;
+  /* Replace with your image */
+  background-size: contain;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  /* Smooth scaling */
+}
+
+.slider::-moz-range-thumb:hover {
+  transform: scale(1.5);
+  /* Scale up on hover */
+}
+
+/* 🔘 Optional: Add 5 notches visually */
+.slider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.slider::before {
+  background-image: repeating-linear-gradient(to right, #aaa 0, #aaa 1px, transparent 1px, transparent 20%);
+  background-size: calc(100% / 4) 100%;
+  height: 2vh;
+}
+
+.modebutton {
+  display: flex;
+  /* Use flexbox for horizontal alignment */
+  flex-direction: row;
+  /* Align buttons in a row */
+  gap: 10px;
+  /* Add spacing between the buttons */
+  width: 100%;
+  /* Make the container span the full width of the left panel */
+  justify-content: space-between;
+  /* Distribute buttons evenly */
+  align-items: center;
+  /* Align the buttons vertically */
+  margin-bottom: 20px;
+  /* Add spacing below the buttons */
+}
+
+.modebutton button {
+  flex: 1;
+  /* Make both buttons take equal space */
+  padding: 10px;
+  background-color: hsl(210, 67%, 5%);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: url('/assets/crosshair.png'), pointer;
+  text-align: center;
+}
+
+.modebutton button:hover {
+  background-color: hsl(210, 67%, 15%);
+}
+
+.info-block {
+  display: grid;
+  /* Use CSS Grid for layout */
+  grid-template-columns: repeat(2, 1fr);
+  /* Create 2 columns of equal width */
+  gap: 10px;
+  /* Add spacing between the blocks */
+  width: 100%;
+  /* Make the grid span the full width of the container */
+  margin: 20px 0;
+  /* Add spacing above and below the grid */
+}
+
+.info-item {
+  background-color: hsl(210, 67%, 15%);
+  color: white;
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px;
+  font-family: "VT323", monospace;
+  font-size: 1.2rem;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.slider-container {
+  width: 100%;
+  /* Ensure the container spans the full width */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.slider-value {
+  position: absolute;
+  top: -25px;
+  /* Position the value above the slider */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1rem;
+  color: white;
+  font-family: "VT323", monospace;
+  text-align: center;
+  pointer-events: none;
+}
